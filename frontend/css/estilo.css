@@ -1,0 +1,414 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  background-color: #f2f2ef;
+  color: #242424;
+}
+
+.container {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.topo {
+  background-color: #1d3b30;
+  color: #fff;
+  padding: 18px 0;
+  margin-bottom: 24px;
+}
+
+.topo h1 {
+  margin: 0;
+  font-size: 22px;
+  letter-spacing: 0.5px;
+}
+
+.topo p {
+  margin: 4px 0 0;
+  font-size: 14px;
+  color: #cfd8d3;
+}
+
+.voltar {
+  display: inline-block;
+  margin-top: 6px;
+  color: #cfd8d3;
+  font-size: 13px;
+}
+
+.voltar:hover {
+  color: #fff;
+}
+
+.rodape {
+  margin-top: 40px;
+  padding: 16px 0;
+  border-top: 1px solid #ddd;
+  font-size: 13px;
+  color: #777;
+}
+
+a {
+  color: #1d3b30;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.filtros {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 14px;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 200px;
+}
+
+.campo label {
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #666;
+  margin-bottom: 4px;
+}
+
+.campo input,
+.campo select {
+  padding: 8px;
+  border: 1px solid #bbb;
+  background-color: #fff;
+  font-size: 15px;
+}
+
+.campo input:focus,
+.campo select:focus {
+  outline: 2px solid #1d3b30;
+}
+
+.contador {
+  font-size: 13px;
+  color: #666;
+  margin: 12px 0 8px;
+}
+
+.conteudo {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.lista {
+  flex: 1 1 560px;
+}
+
+.grade {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 10px;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+.card:hover {
+  border-color: #1d3b30;
+  text-decoration: none;
+}
+
+.card div {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.card strong {
+  font-size: 15px;
+}
+
+.escudo {
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.sem-escudo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #e6e6e2;
+  border: 1px solid #ccc;
+  font-size: 11px;
+  font-weight: bold;
+  color: #555;
+}
+
+.sigla {
+  font-size: 12px;
+  color: #888;
+}
+
+.campeonato {
+  font-size: 12px;
+  color: #666;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.aviso {
+  font-size: 14px;
+  color: #8a4b4b;
+}
+
+.painel {
+  flex: 1 1 220px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 12px 14px;
+}
+
+.painel h2 {
+  margin: 0 0 8px;
+  font-size: 14px;
+  text-transform: uppercase;
+  color: #666;
+}
+
+.painel ol {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.painel li {
+  padding: 4px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.painel li:last-child {
+  border-bottom: none;
+}
+
+.total {
+  float: right;
+  color: #888;
+  font-size: 13px;
+}
+
+.cabecalho-time {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 16px;
+}
+
+.cabecalho-time h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.cabecalho-time .campeonato {
+  margin: 2px 0 10px;
+}
+
+.escudo-grande {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+}
+
+.dados {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+}
+
+.dados li {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+}
+
+.dados span {
+  font-size: 11px;
+  text-transform: uppercase;
+  color: #888;
+}
+
+.site {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 13px;
+}
+
+.resumo {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 16px 0;
+}
+
+.cartao {
+  flex: 1 1 130px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-left: 3px solid #bbb;
+  padding: 10px 12px;
+}
+
+.cartao strong {
+  display: block;
+  font-size: 22px;
+}
+
+.cartao span {
+  font-size: 12px;
+  color: #666;
+}
+
+.cartao.vitoria {
+  border-left-color: #2f6b45;
+}
+
+.cartao.empate {
+  border-left-color: #9a8f5c;
+}
+
+.cartao.derrota {
+  border-left-color: #9d4b4b;
+}
+
+.historico-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.historico-topo h2 {
+  margin: 0;
+  font-size: 17px;
+}
+
+.botoes button {
+  border: 1px solid #bbb;
+  background-color: #fff;
+  padding: 6px 12px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.botoes button:hover {
+  border-color: #1d3b30;
+}
+
+.botoes button.ativo {
+  background-color: #1d3b30;
+  border-color: #1d3b30;
+  color: #fff;
+}
+
+.tabela-rolagem {
+  overflow-x: auto;
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
+
+.tabela-partidas {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.tabela-partidas th {
+  text-align: left;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #666;
+  background-color: #f7f7f4;
+  padding: 8px 10px;
+  border-bottom: 1px solid #ddd;
+  white-space: nowrap;
+}
+
+.tabela-partidas td {
+  padding: 8px 10px;
+  border-bottom: 1px solid #eee;
+  white-space: nowrap;
+}
+
+.tabela-partidas tr:last-child td {
+  border-bottom: none;
+}
+
+.tabela-partidas .destaque {
+  font-weight: bold;
+}
+
+.tabela-partidas .placar {
+  text-align: center;
+}
+
+.tabela-partidas .vazio {
+  text-align: center;
+  color: #777;
+  padding: 18px;
+}
+
+.etiqueta {
+  display: inline-block;
+  min-width: 62px;
+  text-align: center;
+  padding: 2px 6px;
+  font-size: 12px;
+  color: #fff;
+}
+
+.etiqueta.V {
+  background-color: #2f6b45;
+}
+
+.etiqueta.E {
+  background-color: #8a8264;
+}
+
+.etiqueta.D {
+  background-color: #9d4b4b;
+}
+
+@media (max-width: 640px) {
+  .cabecalho-time {
+    flex-direction: column;
+  }
+
+  .painel {
+    order: -1;
+  }
+}

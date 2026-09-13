@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>infoTeam - dados do time</title>
+  <link rel="stylesheet" href="css/estilo.css">
+</head>
+<body>
+
+  <header class="topo">
+    <div class="container">
+      <h1>infoTeam</h1>
+      <a class="voltar" href="index.html">voltar para a busca</a>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <p class="aviso" id="aviso"></p>
+
+    <section class="cabecalho-time" id="cabecalho-time"></section>
+
+    <section class="resumo" id="resumo"></section>
+
+    <section class="historico">
+      <div class="historico-topo">
+        <h2>Histórico de partidas</h2>
+        <div class="botoes" id="filtro-local">
+          <button type="button" class="ativo" data-local="todas">Todas</button>
+          <button type="button" data-local="casa">Em casa</button>
+          <button type="button" data-local="fora">Fora</button>
+        </div>
+      </div>
+
+      <div class="tabela-rolagem">
+        <table class="tabela-partidas">
+          <thead>
+            <tr>
+              <th>Data</th>
+              <th>Rodada</th>
+              <th>Mandante</th>
+              <th>Placar</th>
+              <th>Visitante</th>
+              <th>Resultado</th>
+            </tr>
+          </thead>
+          <tbody id="lista-partidas"></tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="rodape">
+    <div class="container">
+      <p>Trabalho acadêmico. Dados de futebol da API football-data.org.</p>
+    </div>
+  </footer>
+
+  <script src="js/dados-exemplo.js"></script>
+  <script src="js/time.js"></script>
+</body>
+</html>

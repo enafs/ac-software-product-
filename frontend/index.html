@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>infoTeam - buscar time</title>
+  <link rel="stylesheet" href="css/estilo.css">
+</head>
+<body>
+
+  <header class="topo">
+    <div class="container">
+      <h1>infoTeam</h1>
+      <p>Consulte o histórico de partidas e os dados do seu time.</p>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <section class="filtros">
+      <div class="campo">
+        <label for="busca">Nome do time</label>
+        <input type="text" id="busca" placeholder="ex: Flamengo" autocomplete="off">
+      </div>
+      <div class="campo">
+        <label for="campeonato">Campeonato</label>
+        <select id="campeonato">
+          <option value="">Todos</option>
+        </select>
+      </div>
+    </section>
+
+    <p class="contador" id="contador"></p>
+
+    <div class="conteudo">
+      <section class="lista">
+        <div class="grade" id="lista-times"></div>
+        <p class="aviso" id="aviso"></p>
+      </section>
+
+      <aside class="painel">
+        <h2>Times mais buscados</h2>
+        <ol id="mais-buscados"></ol>
+      </aside>
+    </div>
+
+  </main>
+
+  <footer class="rodape">
+    <div class="container">
+      <p>Trabalho acadêmico. Dados de futebol da API football-data.org.</p>
+    </div>
+  </footer>
+
+  <script src="js/dados-exemplo.js"></script>
+  <script src="js/busca.js"></script>
+</body>
+</html>

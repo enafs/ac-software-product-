@@ -1,0 +1,8 @@
+services:
+  site:
+    image: nginx:alpine
+    container_name: infoteam-site
+    ports:
+      - "8080:80"
+    volumes:
+      - ./frontend:/usr/share/nginx/html:ro
