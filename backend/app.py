@@ -61,6 +61,7 @@ PARTIDAS_SQL = """
     JOIN times tc ON tc.id = p.time_casa_id
     JOIN times tf ON tf.id = p.time_fora_id
     WHERE p.time_casa_id = %(id)s OR p.time_fora_id = %(id)s
+  AND p.status = 'FINISHED'      -- o AND só vale para o "fora"
 """
 
 

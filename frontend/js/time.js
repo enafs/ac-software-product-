@@ -4,6 +4,7 @@ const idTime = Number(parametros.get("id"));
 const pAviso = document.getElementById("aviso");
 const secaoCabecalho = document.getElementById("cabecalho-time");
 const secaoResumo = document.getElementById("resumo");
+const secaoHistorico = document.querySelector(".historico");
 const corpoTabela = document.getElementById("lista-partidas");
 
 let partidas = [];
@@ -18,64 +19,87 @@ function formatarData(texto) {
   return dia + " " + meses[data.getMonth()] + " " + data.getFullYear();
 }
 
+// Resultado do ponto de vista do time da página
+function resultadoDaPartida(partida) {
+  const emCasa = partida.time_casa_id === idTime;
+  const pro = emCasa ? partida.gols_casa : partida.gols_fora;
+  const contra = emCasa ? partida.gols_fora : partida.gols_casa;
+
+  if (pro === contra) {
+    return "E";
+  }
+  return pro > contra ? "V" : "D";
+}
+
 function mostrarCabecalho(time) {
-  document.title = "infoTeam - " + time.apelido;
+  const nomeCurto = time.nome_curto || time.nome;
+  document.title = "infoTeam - " + nomeCurto;
 
-  secaoCabecalho.innerHTML =
-    "<img class='escudo-grande' src='" + time.escudo + "' alt='escudo do " + time.apelido +
-      "' onerror=\"this.style.display='none'\">" +
-    "<div>" +
-      "<h2>" + time.nome + "</h2>" +
-      "<p class='campeonato'>" + time.campeonato + "</p>" +
-      "<ul class='dados'>" +
-        "<li><span>Sigla</span>" + time.sigla + "</li>" +
-        "<li><span>Fundação</span>" + (time.fundacao || "-") + "</li>" +
-        "<li><span>Estádio</span>" + (time.estadio || "-") + "</li>" +
-        "<li><span>Cores</span>" + (time.cores || "-") + "</li>" +
-      "</ul>" +
-      (time.site ? "<a class='site' href='" + time.site + "' target='_blank'>site oficial</a>" : "") +
-    "</div>";
-}
+  secaoCabecalho.innerHTML = "";
 
-function calcularResumo(lista) {
-  const resumo = {
-    jogos: lista.length, vitorias: 0, empates: 0, derrotas: 0,
-    gols_pro: 0, gols_contra: 0
-  };
+  if (time.escudo_url) {
+    const escudo = criar("img", "escudo-grande");
+    escudo.src = time.escudo_url;
+    escudo.alt = "escudo do " + nomeCurto;
+    escudo.onerror = function () { escudo.style.display = "none"; };
+    secaoCabecalho.appendChild(escudo);
+  }
 
-  lista.forEach(function (partida) {
-    if (partida.resultado === "V") {
-      resumo.vitorias++;
-    } else if (partida.resultado === "E") {
-      resumo.empates++;
-    } else {
-      resumo.derrotas++;
-    }
+  const bloco = criar("div");
+  bloco.appendChild(criar("h2", "", time.nome));
+  bloco.appendChild(criar("p", "campeonato", time.campeonato));
 
-    const emCasa = partida.id_time_casa === idTime;
-    resumo.gols_pro += emCasa ? partida.gols_casa : partida.gols_fora;
-    resumo.gols_contra += emCasa ? partida.gols_fora : partida.gols_casa;
+  const dados = criar("ul", "dados");
+  [
+    ["Sigla", time.sigla],
+    ["Fundação", time.fundacao],
+    ["Estádio", time.estadio],
+    ["Cores", time.cores]
+  ].forEach(function (par) {
+    const li = criar("li");
+    li.appendChild(criar("span", "", par[0]));
+    li.appendChild(document.createTextNode(par[1] || "-"));
+    dados.appendChild(li);
   });
+  bloco.appendChild(dados);
 
-  return resumo;
+  // só aceita links http(s) vindos do banco
+  if (time.site && /^https?:\/\//i.test(time.site)) {
+    const site = criar("a", "site", "site oficial");
+    site.href = time.site;
+    site.target = "_blank";
+    site.rel = "noopener";
+    bloco.appendChild(site);
+  }
+
+  secaoCabecalho.appendChild(bloco);
 }
 
-function mostrarResumo(resumo) {
+function mostrarResumo(estatisticas) {
   const cartoes = [
-    { rotulo: "Jogos", valor: resumo.jogos, cor: "" },
-    { rotulo: "Vitórias", valor: resumo.vitorias, cor: "vitoria" },
-    { rotulo: "Empates", valor: resumo.empates, cor: "empate" },
-    { rotulo: "Derrotas", valor: resumo.derrotas, cor: "derrota" },
-    { rotulo: "Gols (pró/contra)", valor: resumo.gols_pro + " / " + resumo.gols_contra, cor: "" }
+    { rotulo: "Jogos", valor: estatisticas.jogos, cor: "" },
+    { rotulo: "Vitórias", valor: estatisticas.vitorias, cor: "vitoria" },
+    { rotulo: "Empates", valor: estatisticas.empates, cor: "empate" },
+    { rotulo: "Derrotas", valor: estatisticas.derrotas, cor: "derrota" },
+    { rotulo: "Pontos", valor: estatisticas.pontos, cor: "" },
+    { rotulo: "Gols (pró/contra)", valor: estatisticas.gols_pro + " / " + estatisticas.gols_contra, cor: "" }
   ];
 
   secaoResumo.innerHTML = "";
   cartoes.forEach(function (cartao) {
-    const div = document.createElement("div");
-    div.className = "cartao " + cartao.cor;
-    div.innerHTML = "<strong>" + cartao.valor + "</strong><span>" + cartao.rotulo + "</span>";
+    const div = criar("div", "cartao " + cartao.cor);
+    div.appendChild(criar("strong", "", String(cartao.valor)));
+    div.appendChild(criar("span", "", cartao.rotulo));
     secaoResumo.appendChild(div);
   });
+}
+
+function linhaVazia(texto) {
+  const linha = criar("tr");
+  const celula = criar("td", "vazio", texto);
+  celula.colSpan = 6;
+  linha.appendChild(celula);
+  return linha;
 }
 
 function mostrarPartidas(local) {
@@ -83,31 +107,34 @@ function mostrarPartidas(local) {
 
   const filtradas = partidas.filter(function (partida) {
     if (local === "casa") {
-      return partida.id_time_casa === idTime;
+      return partida.time_casa_id === idTime;
     }
     if (local === "fora") {
-      return partida.id_time_fora === idTime;
+      return partida.time_fora_id === idTime;
     }
     return true;
   });
 
   if (filtradas.length === 0) {
-    corpoTabela.innerHTML = "<tr><td colspan='6' class='vazio'>Nenhuma partida nesse filtro.</td></tr>";
+    corpoTabela.appendChild(linhaVazia(
+      partidas.length === 0 ? "Nenhuma partida finalizada ainda." : "Nenhuma partida nesse filtro."));
     return;
   }
 
   filtradas.forEach(function (partida) {
-    const linha = document.createElement("tr");
-    const jogouEmCasa = partida.id_time_casa === idTime;
+    const jogouEmCasa = partida.time_casa_id === idTime;
+    const resultado = resultadoDaPartida(partida);
+    const linha = criar("tr");
 
-    linha.innerHTML =
-      "<td>" + formatarData(partida.data_hora) + "</td>" +
-      "<td>" + (partida.rodada || "-") + "</td>" +
-      "<td class='" + (jogouEmCasa ? "destaque" : "") + "'>" + partida.time_casa + "</td>" +
-      "<td class='placar'>" + partida.gols_casa + " x " + partida.gols_fora + "</td>" +
-      "<td class='" + (jogouEmCasa ? "" : "destaque") + "'>" + partida.time_fora + "</td>" +
-      "<td><span class='etiqueta " + partida.resultado + "'>" +
-        nomesResultado[partida.resultado] + "</span></td>";
+    linha.appendChild(criar("td", "", formatarData(partida.data_utc)));
+    linha.appendChild(criar("td", "", partida.rodada || "-"));
+    linha.appendChild(criar("td", jogouEmCasa ? "destaque" : "", partida.time_casa));
+    linha.appendChild(criar("td", "placar", partida.gols_casa + " x " + partida.gols_fora));
+    linha.appendChild(criar("td", jogouEmCasa ? "" : "destaque", partida.time_fora));
+
+    const tdResultado = criar("td");
+    tdResultado.appendChild(criar("span", "etiqueta " + resultado, nomesResultado[resultado]));
+    linha.appendChild(tdResultado);
 
     corpoTabela.appendChild(linha);
   });
@@ -127,21 +154,42 @@ function ligarFiltros() {
   });
 }
 
-function carregarTela() {
-  const time = buscarTimePorId(idTime);
+function mostrarFalha(mensagem) {
+  pAviso.textContent = mensagem;
+  secaoHistorico.style.display = "none";
+}
 
-  if (!time) {
-    pAviso.textContent = "Time não encontrado. Volte para a busca e escolha outro.";
-    document.querySelector(".historico").style.display = "none";
+async function carregarTela() {
+  // sem id na URL, id inválido (ex.: ?id=abc) ou zero
+  if (!Number.isInteger(idTime) || idTime <= 0) {
+    mostrarFalha("Time não encontrado. Volte para a busca e escolha outro.");
     return;
   }
 
-  partidas = partidasDeExemplo(idTime);
+  pAviso.textContent = "Carregando...";
 
-  mostrarCabecalho(time);
-  mostrarResumo(calcularResumo(partidas));
-  mostrarPartidas("todas");
-  ligarFiltros();
+  try {
+    const resultados = await Promise.all([
+      api("/times/" + idTime),
+      api("/times/" + idTime + "/resumo"),
+      api("/times/" + idTime + "/partidas?status=FINISHED&limite=200")
+    ]);
+
+    partidas = resultados[2].filter(function (partida) {
+      return partida.gols_casa !== null && partida.gols_fora !== null;
+    });
+    pAviso.textContent = "";
+    mostrarCabecalho(resultados[0]);
+    mostrarResumo(resultados[1].estatisticas);
+    mostrarPartidas("todas");
+    ligarFiltros();
+  } catch (erro) {
+    if (erro.status === 404) {
+      mostrarFalha("Time não encontrado. Volte para a busca e escolha outro.");
+    } else {
+      mostrarFalha("Não foi possível carregar os dados do time. Verifique se a API está no ar e tente novamente.");
+    }
+  }
 }
 
 carregarTela();

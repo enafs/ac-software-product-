@@ -16,6 +16,15 @@ services:
       timeout: 5s
       retries: 10
 
+  frontend:
+    image: nginx:alpine
+    volumes:
+      - ./frontend:/usr/share/nginx/html:ro
+    ports:
+      - "8080:80"
+    depends_on:
+      - api
+
   api:
     build: ./backend
     env_file: .env
