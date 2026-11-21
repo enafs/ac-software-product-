@@ -1,0 +1,122 @@
+/* Estilos da tela de comparação e do botão "comparar" da página do time */
+
+.botao-comparar {
+  display: table;
+  margin-top: 12px;
+  padding: 7px 14px;
+  border: 1px solid #1d3b30;
+  background-color: #fff;
+  color: #1d3b30;
+  font-size: 13px;
+}
+
+.botao-comparar:hover {
+  background-color: #1d3b30;
+  color: #fff;
+  text-decoration: none;
+}
+
+.dica {
+  font-size: 14px;
+  color: #666;
+  margin: 12px 0;
+}
+
+.duelo {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 12px;
+  align-items: center;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 16px;
+  margin-top: 16px;
+}
+
+.lado {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.lado h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.lado .campeonato {
+  max-width: 100%;
+}
+
+.vs {
+  font-size: 13px;
+  font-weight: bold;
+  color: #888;
+  text-transform: uppercase;
+}
+
+.titulo-secao {
+  margin: 24px 0 10px;
+  font-size: 17px;
+}
+
+.tabela-comparacao {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  font-size: 15px;
+}
+
+.tabela-comparacao td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #eee;
+  text-align: center;
+  width: 35%;
+}
+
+.tabela-comparacao td.rotulo {
+  width: 30%;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #666;
+  background-color: #f7f7f4;
+}
+
+.tabela-comparacao tr:last-child td {
+  border-bottom: none;
+}
+
+.tabela-comparacao td.melhor {
+  font-weight: bold;
+  color: #1d3b30;
+  background-color: #e1eee6;
+}
+
+.legenda {
+  font-size: 12px;
+  color: #777;
+  margin: 6px 0 0;
+}
+
+.confrontos-resumo {
+  font-size: 14px;
+  margin: 0 0 10px;
+}
+
+.mensagem-confrontos {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 14px;
+  color: #666;
+  font-size: 14px;
+}
+
+@media (max-width: 640px) {
+  .duelo {
+    grid-template-columns: 1fr;
+  }
+}

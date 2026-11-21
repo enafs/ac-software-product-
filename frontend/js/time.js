@@ -72,6 +72,10 @@ function mostrarCabecalho(time) {
     bloco.appendChild(site);
   }
 
+  const comparar = criar("a", "botao-comparar", "Comparar com outro time");
+  comparar.href = "comparar.html?time1=" + time.id;
+  bloco.appendChild(comparar);
+
   secaoCabecalho.appendChild(bloco);
 }
 

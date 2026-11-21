@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>infoTeam - comparar times</title>
+  <link rel="stylesheet" href="css/estilo.css">
+  <link rel="stylesheet" href="css/comparar.css">
+</head>
+<body>
+
+  <header class="topo">
+    <div class="container">
+      <h1>infoTeam</h1>
+      <p>Compare o retrospecto de dois times lado a lado.</p>
+      <a class="voltar" href="index.html">voltar para a busca</a>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <section class="filtros">
+      <div class="campo">
+        <label for="time1">Time 1</label>
+        <select id="time1">
+          <option value="">Escolha um time</option>
+        </select>
+      </div>
+      <div class="campo">
+        <label for="time2">Time 2</label>
+        <select id="time2">
+          <option value="">Escolha um time</option>
+        </select>
+      </div>
+    </section>
+
+    <p class="dica" id="dica">Escolha dois times para comparar.</p>
+    <p class="aviso" id="aviso"></p>
+
+    <div id="resultado"></div>
+
+  </main>
+
+  <footer class="rodape">
+    <div class="container">
+      <p>Trabalho acadêmico. Dados de futebol da API football-data.org.</p>
+    </div>
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/comparar.js"></script>
+</body>
+</html>
